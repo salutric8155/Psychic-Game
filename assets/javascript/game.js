@@ -4,20 +4,22 @@ var guessesLeft= 10;
 var yourGuessesSoFar= " ";
 var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 var computerChoices= alphabet;
+var userGuessArray = [];
 
  document.onkeyup = function(event) {
 
           var userGuess = event.key;
+          userGuessArray.push(userGuess);
+
           var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-          var insertElement = function () {
-          	document.getElementsById("guesses so far").innerHTML = userGuess;
-          	
-          };
+          
 
           if (userGuess === computerGuess){
-          	wins++,
+          	wins++;
           	guessesLeft= 10;
+          	userGuessArray = [];
+
           }
 
           if (userGuess !== computerGuess){
@@ -25,18 +27,19 @@ var computerChoices= alphabet;
           }
 
           if (guessesLeft <= 0){
-          		losses++,
+          		losses++;
           		guessesLeft= 10;
+          		userGuessArray = [];
           }
           
-          
+
 
           var html = "<h1>The Psychic Game</h1>" +
           "<p>Guess what letter I'm thinking of</p>" +
           "<p>Wins: " + wins + "</p>" +
           "<p>Losses: " + losses + "</p>" +
           "<p>Guesses Left: " + guessesLeft + "</p>" +
-          "<p>Your guesses so far: " + userGuess + "</p>";
+          "<p>Your guesses so far: " + userGuessArray.join(", ") + "</p>";
 
           document.querySelector("#game").innerHTML = html;        
       };
